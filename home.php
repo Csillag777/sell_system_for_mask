@@ -5,6 +5,20 @@ $dbservername='localhost';
 $dbname='test';
 $dbusername='test01';
 $dbpassword='1234';
+$msg = "please login in !";
+if(empty($_SESSION)){
+    echo <<<EOT
+    <!DOCTYPE html>
+    <html>
+      <body>
+	    <script>
+          alert("$msg");
+		  window.location.replace("index.php");
+        </script>
+	  </body>
+	</html>
+EOT;
+}
 ?>
 
 <!DOCTYPE html>
@@ -197,7 +211,7 @@ $dbpassword='1234';
   foreach ($row as $datainfo)
   {
       echo '<form action="home.php" method="get">
-      <tr><td><input type="text"  value="'. $datainfo["name"] . ' " id="b6" name="shop_name"</td>';
+      <tr><td><input type="text" readonly value="'. $datainfo["name"] . ' " id="b6" name="shop_name"</td>';
       echo "<td>". $datainfo['city'] . " </td>";
       echo "<td>$". $datainfo['price'] . " </td>";
       echo "<td>". $datainfo['amount'] . " </td>";
@@ -226,15 +240,8 @@ EOT;
 }
 $conn = new PDO("mysql:host=$dbservername;dbname=$dbname", $dbusername, $dbpassword);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);	
-$t3 = idate("H")+6;
-if ($t3>24){
-  $t3 = $t3-24;
-  if ($t3<10){
-    $t3 = "0".($t3);
-  }
-}
-$t4 = date("Y/m/d $t3:i:s")."<br>User: ".$_SESSION['user_name'];
 
+$t4 = date("Y/m/d H:i:s", mktime(idate("H")+6, idate("i"), idate("s"), idate("m")  , idate("d"), idate("Y")))."<br>User: ".$_SESSION['user_name'];
 
 if(isset($_GET['buy_amount'])){	
   $o = $_GET['buy_amount'];
@@ -253,7 +260,7 @@ if(isset($_GET['buy_amount'])){
     
   }
   echo $o;
-  
+  $o1 = $o;
   $o = floatval($o)*10000;
   $o = $o%10000;
   if(($_GET['buy_amount']>$p3)){
@@ -271,7 +278,7 @@ if(isset($_GET['buy_amount'])){
   
   exit();
   }
-  if(!($o == 0)){
+  if(!($o == 0||$o1<=0)){
     echo <<<EOT
       <!DOCTYPE html>
       <html>

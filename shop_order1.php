@@ -208,14 +208,9 @@ $s2 = $_GET['shop_name'];
     echo "</table>";
   }
   if (isset($_GET['DeleteOID'])&& (!isset($_GET['status']))){
-    $t3 = idate("H")+6;
-if ($t3>24){
-  $t3 = $t3-24;
-  if ($t3<10){
-    $t3 = "0".($t3);
-  }
-}
-$t4 = date("Y/m/d $t3:i:s")."<br>Clerk: ".$_SESSION['user_name'];
+  
+$t4 = date("Y/m/d H:i:s", mktime(idate("H")+6, idate("i"), idate("s"), idate("m")  , idate("d"), idate("Y")))."<br>Clerk: ".$_SESSION['user_name'];
+
     $stmt2=$conn->prepare("update order1 set status=:status,end=:end where OID=:OID");
     $stmt2->execute(array('status' => "canceled",'end' => $t4,'OID' => $_GET['DeleteOID']));
     
@@ -244,14 +239,8 @@ EOT;
   }
   
   if (isset($_GET['finishOID'])){
-    $t3 = idate("H")+6;
-if ($t3>24){
-  $t3 = $t3-24;
-  if ($t3<10){
-    $t3 = "0".($t3);
-  }
-}
-$t4 = date("Y/m/d $t3:i:s")."<br>Clerk: ".$_SESSION['user_name'];
+  
+$t4 = date("Y/m/d H:i:s", mktime(idate("H")+6, idate("i"), idate("s"), idate("m")  , idate("d"), idate("Y")))."<br>Clerk: ".$_SESSION['user_name'];
     $stmt2=$conn->prepare("update order1 set status=:status,end=:end where OID=:OID");
     $stmt2->execute(array('status' => "finished",'end' => $t4,'OID' => $_GET['finishOID']));
     echo <<<EOT

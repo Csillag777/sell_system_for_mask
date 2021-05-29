@@ -5,6 +5,20 @@ $dbservername='localhost';
 $dbname='test';
 $dbusername='test01';
 $dbpassword='1234';
+$msg = "please login in !";
+if(empty($_SESSION)){
+    echo <<<EOT
+    <!DOCTYPE html>
+    <html>
+      <body>
+	    <script>
+          alert("$msg");
+		  window.location.replace("index.php");
+        </script>
+	  </body>
+	</html>
+EOT;
+}
 ?>
 
 <!DOCTYPE html>
