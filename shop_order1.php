@@ -211,6 +211,14 @@ $s2 = $_GET['shop_name'];
   
 $t4 = date("Y/m/d H:i:s", mktime(idate("H")+6, idate("i"), idate("s"), idate("m")  , idate("d"), idate("Y")))."<br>Clerk: ".$_SESSION['user_name'];
 
+$stmt5=$conn->prepare("select status from order1 where OID=:OID");
+$stmt5->execute(array('OID' => $_GET['DeleteOID']));
+$row3 = $stmt5->fetchAll();
+foreach($row3 as $datainfo3){
+  $a7 = $datainfo3['status'];
+  
+}
+    if ($a7 == "Not finished"){
     $stmt2=$conn->prepare("update order1 set status=:status,end=:end where OID=:OID");
     $stmt2->execute(array('status' => "canceled",'end' => $t4,'OID' => $_GET['DeleteOID']));
     
@@ -237,10 +245,30 @@ foreach($row1 as $datainfo1){
 	</html>
 EOT;
   }
+  else{
+    echo <<<EOT
+    <!DOCTYPE html>
+    <html>
+      <body>
+	    <script>
+          alert("This order is already be canceled or finished.");
+		  window.location.replace("shop_order1.php");
+        </script>
+	  </body>
+	</html>
+EOT;
+  }
+}
   
   if (isset($_GET['finishOID'])){
-  
 $t4 = date("Y/m/d H:i:s", mktime(idate("H")+6, idate("i"), idate("s"), idate("m")  , idate("d"), idate("Y")))."<br>Clerk: ".$_SESSION['user_name'];
+$stmt5=$conn->prepare("select status from order1 where OID=:OID");
+$stmt5->execute(array('OID' => $_GET['finishOID']));
+$row3 = $stmt5->fetchAll();
+foreach($row3 as $datainfo3){
+  $a7 = $datainfo3['status'];
+}
+if ($a7 == "Not finished"){
     $stmt2=$conn->prepare("update order1 set status=:status,end=:end where OID=:OID");
     $stmt2->execute(array('status' => "finished",'end' => $t4,'OID' => $_GET['finishOID']));
     echo <<<EOT
@@ -254,6 +282,20 @@ $t4 = date("Y/m/d H:i:s", mktime(idate("H")+6, idate("i"), idate("s"), idate("m"
 	  </body>
 	</html>
 EOT;
+}
+else{
+  echo <<<EOT
+    <!DOCTYPE html>
+    <html>
+      <body>
+	    <script>
+          alert("This order is already be canceled or finished.");
+		  window.location.replace("shop_order1.php");
+        </script>
+	  </body>
+	</html>
+EOT;
+}
   }
 ?>
 

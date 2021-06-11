@@ -63,10 +63,10 @@ EOT;
 <h3>Profile</h3>
 <hr color= "D1D2CD"/>
 <p>Account</p>
-<span id="accname"><?php echo '<div class="s">'.$_SESSION["user_name"].'</div>; '?></span>
+<span id="accname"><?php echo '<div class="s">'.$_SESSION["user_name"].'</div> '?></span>
 <hr color="D1D2CD"/>
 <p>Phone</p>
-<span id="phoname"><?php echo '<div class="s">'.$_SESSION['phone'].'</div>; '?></span>
+<span id="phoname"><?php echo '<div class="s">'.$_SESSION['phone'].'</div> '?></span>
 <hr color="D1D2CD"/>
 <h3>Shop List</h3>
 <hr color="D1D2CD"/>
