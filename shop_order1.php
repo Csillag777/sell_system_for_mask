@@ -173,27 +173,7 @@ $s2 = $_GET['shop_name'];
                   }
                 
                 }
-                $s4= str_replace($_SESSION['owner_shop_name'], 1, $datainfo['shop']);
-                //echo $s4;
-                if ($s4==1){
-                    echo "<tr><td>". $datainfo['OID'] . " </td>";
-                    echo "<td>". $datainfo['status'] . " </td>";
-                    echo "<td>". $datainfo['start'] . " </td>";
-                    echo "<td>". $datainfo['end'] . " </td>";
-                    echo "<td>". $datainfo['shop'] . " </td>";
-                    echo "<td>$". $datainfo['total_price'] . " </td>";
-                    
-                    echo "<td>". $datainfo['amount'] . " </td>";
-                    echo "<td>$". $datainfo['price'] . " </td>";
               
-                    if ($datainfo['status']=="Not finished"){
-                      echo '<td><a href="?finishOID=' . $datainfo["OID"] . '" style="font-size:24px;background:white;border:none"><i style="color:green" class="material-icons">check_circle</i></a>
-                      </td>';
-                      echo '<td><a href="?DeleteOID=' . $datainfo["OID"] . '
-                      &shopname=' . $datainfo["shop"] . '&deleteamount=' . $datainfo["amount"] . '" style="font-size:24px;background:white;border:none"><i style="color:red" class="fa fa-close"></i></a>
-                      </td>';
-                    }
-                  }
 
                 
             }
